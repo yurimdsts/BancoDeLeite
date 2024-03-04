@@ -22,15 +22,27 @@
 		</header>
 
 		<main>
-			<form>
-				<label for="nomesobrenome">Nome e sobrenome</label>
-				<input type="text" id="nomesobrenome" class="input-padrao" required>
+			<form action="/cadastro_mae" method="POST">
+				<label for="nome">Nome e sobrenome</label>
+				<input type="text" id="nome" name="nome" class="input-padrao"  required>
 
-				<label for="email">Email</label>
-				<input type="email" id="email" class="input-padrao" required placeholder="seuemail@dominio.com">
+				<label for="CPF">CPF</label>
+				<input type="number" id="CPF" name="CPF" class="input-padrao" required>
+
+				<label for="idade">CPF</label>
+				<input type="number" id="idade" name="idade" class="input-padrao" required>
 
 				<label for="telefone">Telefone</label>
-				<input type="tel" id="telefone" class="input-padrao" required placeholder="(XX) XXXXX-XXXX">
+				<input type="number" id="telefone" name="telefone" class="input-padrao" required placeholder="(XX) XXXXX-XXXX">
+
+				<label for="endereco">Endereço</label>
+				<input type="text" id="endereo" name="endereco" class="input-padrao" required>
+
+				<label for="tempo_lactacao">Tempo de Lactação</label>
+				<input type="text" id="tempo_lactacao" name="tempo_lactacao" class="input-padrao" required>
+
+				<label for="historico_medico">Algum histórico médico</label>
+				<textarea cols="70" rows="10" id="historico_medico" name="historico_medico" class="input-padrao" required>
 
 				<label for="mensagem">Mensagem</label>
 				<textarea cols="70" rows="10" id="mensagem" class="input-padrao" required></textarea>
