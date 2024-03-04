@@ -1,0 +1,34 @@
+# Ambiente virtual
+venv/
+env/
+
+# Arquivos de byte compilados
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Pasta de distribuição
+dist/
+build/
+
+# Instalações do egg
+.egg/
+egg-info/
+develop-eggs/
+.eggs/
+
+# Arquivos de configuração do PyCharm
+.idea/
+
+# Arquivos de configuração do VS Code
+.vscode/
+
+# Arquivos temporários
+*.bak
+*.swp
+*.tmp
+
+# Outros arquivos e pastas ignorados
+.DS_Store
+Thumbs.db
