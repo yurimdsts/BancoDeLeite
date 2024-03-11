@@ -4,8 +4,9 @@
 		<meta charset="UTF-8">
 		<title>Cadastro - Banco de Leite</title>
 
-		<link rel="stylesheet" href="reset.css">
-		<link rel="stylesheet" href="style.css">
+		
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 	</head>
 	<body>
 		<header>
@@ -14,8 +15,8 @@
 
 				<nav>
 					<ul>
-						<li><a href="index.html">Home</a></li>
-						<li><a href="cadastro.html">Cadastro</a></li>
+						<li><a href="{{ url_for('index') }}">Home</a></li>
+                        <li><a href="{{ url_for('cadastro_mae') }}">Cadastro</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -27,9 +28,9 @@
 				<input type="text" id="nome" name="nome" class="input-padrao"  required>
 
 				<label for="CPF">CPF</label>
-				<input type="number" id="CPF" name="CPF" class="input-padrao" required>
+				<input type="number" id="cpf" name="cpf" class="input-padrao" required>
 
-				<label for="idade">CPF</label>
+				<label for="idade">idade</label>
 				<input type="number" id="idade" name="idade" class="input-padrao" required>
 
 				<label for="telefone">Telefone</label>
@@ -42,30 +43,7 @@
 				<input type="text" id="tempo_lactacao" name="tempo_lactacao" class="input-padrao" required>
 
 				<label for="historico_medico">Algum histórico médico</label>
-				<textarea cols="70" rows="10" id="historico_medico" name="historico_medico" class="input-padrao" required>
-
-				<label for="mensagem">Mensagem</label>
-				<textarea cols="70" rows="10" id="mensagem" class="input-padrao" required></textarea>
-
-				<fieldset>
-					<legend>Como prefere o nosso contato?</legend>
-					<label for="radio-email"><input type="radio" name="contato" value="email" id="radio-email"> Email</label>
-					
-					<label for="radio-telefone"><input type="radio" name="contato" value="telefone" id="radio-telefone"> Telefone</label>
-					
-					<label for="radio-whatsapp"><input type="radio" name="contato" value="whatsapp" id="radio-whatsapp" checked> WhatsApp</label>
-				</fieldset>
-
-				<fieldset>
-					<legend>Qual horário prefere ser atendido?</legend>
-					<select>
-						<option>Manhã</option>
-						<option>Tarde</option>
-						<option>Noite</option>
-					</select>
-				</fieldset>
-
-				<label class="checkbox"><input type="checkbox" checked>Gostaria de receber nossas novidades por email?</label>
+				<textarea cols="70" rows="10" id="historico_medico" name="historico_medico" class="input-padrao" required></textarea>
 
 				<input type="submit" value="Enviar formulário" class="enviar">
 			</form>

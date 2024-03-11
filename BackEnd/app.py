@@ -1,7 +1,13 @@
 from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
+import os
 
-app = Flask(__name__)
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+app = Flask(__name__, 
+            template_folder=os.path.join(BASE_DIR, '../FrontEnd/templates'), 
+            static_folder=os.path.join(BASE_DIR, '../FrontEnd/static'))
+
 
 # Configurações do banco de dados PostgreSQL
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://npzjffcr:Sl_8yHVcyM0pRrBiuL2IuJKamSRginyx@kesavan.db.elephantsql.com/npzjffcr'
@@ -22,7 +28,7 @@ db = SQLAlchemy(app)
 class Mae(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(50), nullable=False)
-    CPF = db.Column(db.BigInteger)
+    cpf = db.Column(db.BigInteger)
     idade = db.Column(db.SmallInteger)
     telefone = db.Column(db.BigInteger)
     endereco = db.Column(db.String(100))
@@ -59,51 +65,54 @@ class Mae(db.Model):
 #     db.session.commit()
 #     return jsonify(new_funcionario.__dict__), 201
 
-@app.route('/cadastro_mae', methods = ['POST'])
+@app.route('/cadastro_mae', methods = ['GET','POST'])
 def cadastro_mae():
-    nome = request.form.get('nome')
-    cpf = request.form.get('CPF')
-    idade = request.form.get('idade')
-    telefone = request.form.get('telefone')
-    endereco = request.form.get('endereco')
-    tempo_lactacao = request.form.get('tempo_lactacao')
-    historico_medico = request.form.get('historico_medico')    
+    if request.method == 'GET':
+        return render_template('cadastro_mae.html')
+    else:
+        nome = request.form.get('nome')
+        cpf = request.form.get('cpf')
+        idade = request.form.get('idade')
+        telefone = request.form.get('telefone')
+        endereco = request.form.get('endereco')
+        tempo_lactacao = request.form.get('tempo_lactacao')
+        historico_medico = request.form.get('historico_medico')    
 
 
-    if len (nome) > 50:
-        return jsonify ({'error': 'limite de caracteres atingido'}),400
-    if len (cpf) > 11:
-        return jsonify ({'error': 'limite de caracteres atingido'}),400
-    if len (idade) < 120:
-        return jsonify ({'error': 'limite de caracteres atingido'}),400
-    if len (endereco) < 100:
-        return jsonify ({'error': 'limite de caracteres atingido'}),400
-    if len (tempo_lactacao) > 30:
-        return jsonify ({'error': 'limite de caracteres atingido'}),400
-    if len (historico_medico) > 200:
-        return jsonify ({'error': 'limite de caracteres atingido'}),400
-    
-    nova_mae=Mae(
-        nome = nome,
-        cpf = cpf,
-        idade = idade,
-        telefone = telefone,
-        endereco = endereco,
-        tempo_lactacao = tempo_lactacao,
-        historico_medico = historico_medico,
-    ) 
+        if len (nome) > 50:
+            return jsonify ({'error': 'limite de caracteres atingido'}),400
+        if len (cpf) > 11:
+            return jsonify ({'error': 'limite de caracteres atingido'}),400
+        if len (idade) > 120:
+            return jsonify ({'error': 'limite de caracteres atingido'}),400
+        if len (endereco) > 100:
+            return jsonify ({'error': 'limite de caracteres atingido'}),400
+        if len (tempo_lactacao) > 30:
+            return jsonify ({'error': 'limite de caracteres atingido'}),400
+        if len (historico_medico) > 200:
+            return jsonify ({'error': 'limite de caracteres atingido'}),400
+        
+        nova_mae=Mae(
+            nome = nome,
+            cpf = cpf,
+            idade = idade,
+            telefone = telefone,
+            endereco = endereco,
+            tempo_lactacao = tempo_lactacao,
+            historico_medico = historico_medico,
+        ) 
 
-    db.session.add(nova_mae)
-    try:
-        db.session.commit()
-        return jsonify ({'message': 'dados salvos'}),201
-    except Exception as e:
-        db.session.rollback()
-        return jsonify ({'error' : str(e)}), 500
+        db.session.add(nova_mae)
+        try:
+            db.session.commit()
+            return jsonify ({'message': 'dados salvos'}),201
+        except Exception as e:
+            db.session.rollback()
+            return jsonify ({'error' : str(e)}), 500
 
 @app.route('/')
 def index():
-    return render_template('FrontEnd\HMTL CSS\index.html')        
+    return render_template('index.html')        
 # Rotas semelhantes para as tabelas Mae e Leite...
 
 if __name__ == '__main__':
